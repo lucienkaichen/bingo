@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>丙午年二月線上月會</title>
+    <!-- 使用穩定 CDN 確保執行 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js" crossorigin></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" crossorigin></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js" crossorigin></script>
@@ -32,6 +33,7 @@
     <script type="text/babel">
         const { useState, useMemo } = React;
         
+        // 封裝 Icon 組件以避免路徑報錯
         const Icon = ({ name, size = 20, className = "" }) => {
             const icons = {
                 Edit: <g><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></g>,
@@ -120,14 +122,15 @@
                 <div className="min-h-screen p-6 md:p-8 flex flex-col items-center relative z-10">
                     <header className="text-center mb-10 relative z-10 w-full">
                         <div className="flex justify-center items-center gap-4 mb-3">
-                            <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#d4af37]/50"></div>
+                            <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#d4af37]/60"></div>
                             <span className="text-[#d4af37] tracking-[0.6em] font-medium text-xs sm:text-base uppercase opacity-90">丙午年正月初七</span>
-                            <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#d4af37]/50"></div>
+                            <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#d4af37]/60"></div>
                         </div>
-                        <h1 className="text-3xl md:text-5xl font-bold tracking-[0.25em] drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)]">二月線上月會</h1>
+                        <h1 className="text-3xl md:text-5xl font-bold tracking-[0.2em] drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)]">二月線上月會</h1>
                     </header>
 
                     <div className="w-full max-w-[1300px] space-y-8 relative z-10">
+                        {/* 規則區 */}
                         <section className="bg-[#8b1a23]/60 backdrop-blur-md p-8 rounded-[2rem] border border-[#d4af37]/20 relative shadow-2xl">
                             <button onClick={() => setEditMode({...editMode, rules: !editMode.rules})} className="absolute top-6 right-8 text-[#d4af37]/30 hover:text-[#d4af37] transition-all">
                                 {editMode.rules ? <Icon name="Save" /> : <Icon name="Edit" />}
@@ -136,10 +139,11 @@
                             {editMode.rules ? (
                                 <textarea className="w-full bg-[#720917]/90 border border-[#d4af37]/30 rounded-2xl p-6 text-lg text-white h-56 outline-none focus:ring-1 ring-[#d4af37]" value={rules.join('\n')} onChange={(e) => setRules(e.target.value.split('\n'))} />
                             ) : (
-                                <div className="text-lg md:text-xl space-y-4 leading-relaxed font-medium">{rules.map((r, i) => <p key={i}>{r}</p>)}</div>
+                                <div className="text-lg md:text-xl space-y-4 leading-relaxed font-bold">{rules.map((r, i) => <p key={i}>{r}</p>)}</div>
                             )}
                         </section>
 
+                        {/* 名單區 */}
                         <section className="bg-[#8b1a23]/40 backdrop-blur-md p-6 rounded-[2rem] border border-[#d4af37]/15 relative shadow-xl overflow-hidden">
                             <div className="flex justify-between items-center px-4">
                                 <div className="flex items-center gap-4">
@@ -171,6 +175,7 @@
                             )}
                         </section>
 
+                        {/* 題目牆 */}
                         <section className="bg-[#8b1a23]/40 backdrop-blur-md p-8 rounded-[2rem] border border-[#d4af37]/15 relative shadow-2xl">
                             <div className="flex justify-between items-center mb-8 px-2">
                                 <div className="flex items-center gap-4">
@@ -200,8 +205,9 @@
                             )}
                         </section>
 
+                        {/* 特別紅包 */}
                         <section className="bg-[#8b1a23]/30 backdrop-blur-md p-8 rounded-[2rem] border border-[#d4af37]/15 relative shadow-xl mb-20 text-center">
-                            <button onClick={() => setEditMode({...editMode, hongbao: !editMode.hongbao})} className="absolute top-6 right-8 text-[#d4af37]/30 hover:text-[#d4af37] transition-all">
+                             <button onClick={() => setEditMode({...editMode, hongbao: !editMode.hongbao})} className="absolute top-6 right-8 text-[#d4af37]/30 hover:text-[#d4af37] transition-all">
                                 {editMode.hongbao ? <Icon name="Save" /> : <Icon name="Edit" />}
                             </button>
                             <h2 className="text-xl font-bold mb-8 text-[#d4af37] tracking-widest uppercase flex items-center justify-center gap-3"><Icon name="Gift" size={22} /> 特別紅包</h2>
